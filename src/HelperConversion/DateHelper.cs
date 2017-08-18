@@ -7,7 +7,8 @@ namespace HelperConversion
         public static int Age(this DateTime birthdate)
         {
             int years = DateTime.UtcNow.Year - birthdate.Year;
-            if ((birthdate.Month > DateTime.UtcNow.Month) || (birthdate.Month == DateTime.UtcNow.Month && birthdate.Day > DateTime.UtcNow.Day))
+            if ((birthdate.Month > DateTime.UtcNow.Month) || 
+                (birthdate.Month == DateTime.UtcNow.Month && birthdate.Day > DateTime.UtcNow.Day))
                 years--;
             return years;
         }
