@@ -1,7 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>Malots.HelperConversion.Extension</PackageId>
+    <Authors>leonardovene</Authors>
+    <Company>Malots</Company>
+    <Product>HelperConversion</Product>
+    <Description>Package with useful converters and extensions</Description>
+    <Copyright>Malots</Copyright>
+    <PackageProjectUrl>https://github.com/Malots/HelperConversion</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Malots/HelperConversion</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>helper extension conversion</PackageTags>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
 </Project>
