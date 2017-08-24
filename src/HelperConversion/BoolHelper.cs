@@ -43,5 +43,10 @@ namespace HelperConversion
         {
             return condition ? valueIfTrue : valueIfFalse;
         }
+
+        public static Char ToChar(this bool value)
+        {
+            return value ? '1' : '0';
+        }
     }
 }

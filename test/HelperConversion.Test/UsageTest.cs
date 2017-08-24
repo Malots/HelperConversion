@@ -191,6 +191,14 @@ namespace HelperConversion.Test
         }
 
         [TestMethod]
+        [TestCategory("Bool Helper")]
+        public void GiveATrueBoolReturnCharValue()
+        {
+            bool value = true;
+            Assert.AreEqual('1', value.ToChar());
+        }
+
+        [TestMethod]
         [TestCategory("Byte Helper")]
         public void GenerateValidByteKey()
         {
@@ -214,5 +222,37 @@ namespace HelperConversion.Test
             byte[] value = ("wordOne").ToByteUTF8Def();
             Assert.AreEqual("wordOne",value.ToStringUTF8Def());
         }
+
+        [TestMethod]
+        [TestCategory("Char Helper")]
+        public void GiveAValidCharReturnIntValue()
+        {
+            char value = '1';
+            Assert.AreEqual(1, value.ToIntDef());
+        }
+
+        [TestMethod]
+        [TestCategory("Char Helper")]
+        public void GiveAinvalidCharReturnIntValueDef()
+        {
+            char value = 'D';
+            Assert.AreEqual(10, value.ToIntDef(10));
+        }
+
+        [TestMethod]
+        [TestCategory("Char Helper")]
+        public void GiveAValidCharReturnBoolValueTrue()
+        {
+            char value = '1';
+            Assert.IsTrue(value.ToBool());
+        }
+        [TestMethod]
+        [TestCategory("Char Helper")]
+        public void GiveAInvalidCharReturnBoolFalse()
+        {
+            char value = 'C';
+            Assert.IsFalse(value.ToBool());
+        }
+
     }
 }
