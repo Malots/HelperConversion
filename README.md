@@ -9,8 +9,8 @@
 
 ## Installation:
 
-- Package Manager -> Install-Package Malots.HelperConversion.Extension -Version 1.0.0
-- .NET CLI -> dotnet add package Malots.HelperConversion.Extension --version 1.0.0
+- Package Manager -> Install-Package Malots.HelperConversion.Extension -Version 1.0.1
+- .NET CLI -> dotnet add package Malots.HelperConversion.Extension --version 1.0.1
 
 ## Example:
 
