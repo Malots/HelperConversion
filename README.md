@@ -20,3 +20,4 @@
  - bool
  - byte
  - date
+ - char
