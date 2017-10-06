@@ -53,18 +53,34 @@ namespace HelperConversion.Test
 
         [TestMethod]
         [TestCategory("String Helper")]
-        public void GiveAValidStringIntegerValueReturnInteger()
+        public void GiveAValidStringIntegerValueReturnInteger32()
         {
             string value = "10";
-            Assert.AreEqual(10, value.ToIntDef());
+            Assert.AreEqual(10, value.ToInt32());
         }
 
         [TestMethod]
         [TestCategory("String Helper")]
-        public void GiveAInvalidStringIntegerValueReturnDefaultInteger()
+        public void GiveAInvalidStringIntegerValueReturnDefaultInteger32()
         {
             string value = "abc";
-            Assert.AreEqual(5, value.ToIntDef(5));
+            Assert.AreEqual(5, value.ToInt32(5));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAValidStringIntegerValueReturnInteger64()
+        {
+            string value = "10";
+            Assert.AreEqual(10, value.ToInt64());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAInvalidStringIntegerValueReturnDefaultInteger64()
+        {
+            string value = "abc";
+            Assert.AreEqual(5, value.ToInt64(5));
         }
 
         [TestMethod]
@@ -72,7 +88,7 @@ namespace HelperConversion.Test
         public void GiveAValidBoolStringValueReturnBoolValue()
         {
             string value = "True";
-            Assert.AreEqual(true, value.ToBoolDef());
+            Assert.AreEqual(true, value.ToBool());
         }
 
         [TestMethod]
@@ -80,7 +96,7 @@ namespace HelperConversion.Test
         public void GiveAInvalidBoolStringValueReturnDefaultBool()
         {
             string value = "abc";
-            Assert.AreEqual(false, value.ToBoolDef(false));
+            Assert.AreEqual(false, value.ToBool(false));
         }
 
         [TestMethod]
@@ -88,7 +104,7 @@ namespace HelperConversion.Test
         public void GiveAValidFloatStringValueReturnFloat()
         {
             string value = "10,5";
-            Assert.AreEqual(10.5f, value.ToFloatDef());
+            Assert.AreEqual(10.5f, value.ToFloat());
         }
 
         [TestMethod]
@@ -96,7 +112,7 @@ namespace HelperConversion.Test
         public void GiveAInvalidFloatStringValueReturnDefaultFloat()
         {
             string value = "abc";
-            Assert.AreEqual(15.5f, value.ToFloatDef(15.5f));
+            Assert.AreEqual(15.5f, value.ToFloat(15.5f));
         }
 
         [TestMethod]
@@ -106,7 +122,7 @@ namespace HelperConversion.Test
             string value = "192.168.1.1";
             IPAddress ip = null;
             IPAddress.TryParse(value,out ip);
-            Assert.AreEqual(ip,value.ToIpDef());
+            Assert.AreEqual(ip,value.ToIp());
         }
 
         [TestMethod]
@@ -117,7 +133,7 @@ namespace HelperConversion.Test
             IPAddress defaultIp = null;
             IPAddress.TryParse(value, out defaultIp);
             value = "abc";
-            Assert.AreEqual(IPAddress.Parse("192.168.1.1"), value.ToIpDef(defaultIp));
+            Assert.AreEqual(IPAddress.Parse("192.168.1.1"), value.ToIp(defaultIp));
         }
 
         [TestMethod]
@@ -126,7 +142,7 @@ namespace HelperConversion.Test
         {
             string value = "word";
             byte[] expected = Encoding.UTF8.GetBytes(value);
-            Assert.IsTrue(value.ToByteUTF8Def().SequenceEqual(expected));
+            Assert.IsTrue(value.ToByteUTF8().SequenceEqual(expected));
         }
 
         [TestMethod]
@@ -136,7 +152,7 @@ namespace HelperConversion.Test
             string value = "word";
             byte[] expected = Encoding.UTF8.GetBytes(value);
             value = null;
-            Assert.IsTrue(value.ToByteUTF8Def(expected).SequenceEqual(expected));
+            Assert.IsTrue(value.ToByteUTF8(expected).SequenceEqual(expected));
         }
 
         [TestMethod]
@@ -161,15 +177,6 @@ namespace HelperConversion.Test
         {
             string word = null;
             Assert.AreEqual("", word.GetOnlyNumbers());
-        }
-
-        [TestMethod]
-        [TestCategory("String Helper")]
-        public void GiveAValidStringReturnHashValue()
-        {
-            string value = "value";
-            byte[] key = ("key").ToByteUTF8Def();
-            Assert.AreNotEqual("", value.HashSha256(key));
         }
 
         [TestMethod]
@@ -202,7 +209,7 @@ namespace HelperConversion.Test
         [TestCategory("Byte Helper")]
         public void GenerateValidByteKey()
         {
-            byte[] value = ("word").ToByteUTF8Def();
+            byte[] value = ("word").ToByteUTF8();
             Assert.IsFalse(value.SequenceEqual(value.GenerateKey()));
         }
 
@@ -210,8 +217,8 @@ namespace HelperConversion.Test
         [TestCategory("Byte Helper")]
         public void CombiteTwoBytes()
         {
-            byte[] valueOne = ("wordOne").ToByteUTF8Def();
-            byte[] valueTwo = ("wordTwo").ToByteUTF8Def();
+            byte[] valueOne = ("wordOne").ToByteUTF8();
+            byte[] valueTwo = ("wordTwo").ToByteUTF8();
             Assert.IsFalse(valueOne.SequenceEqual(valueOne.Combine(valueTwo)));
         }
 
@@ -219,7 +226,7 @@ namespace HelperConversion.Test
         [TestCategory("Byte Helper")]
         public void GiveAValidByteReturnStringValue()
         {
-            byte[] value = ("wordOne").ToByteUTF8Def();
+            byte[] value = ("wordOne").ToByteUTF8();
             Assert.AreEqual("wordOne",value.ToStringUTF8Def());
         }
 
