@@ -9,20 +9,21 @@ namespace HelperConversion.Test
     [TestClass]
     public class UsageTest
     {
+        #region Date Heper
         [TestMethod]
         [TestCategory("Date Helper")]
         public void GiveAValidBirthdateReturnAge()
         {
             DateTime date = new DateTime(1984, 11, 15);
-            Assert.IsTrue(date.Age() >= 32);
+            Assert.IsTrue(date.GetAge() >= 32);
         }
 
         [TestMethod]
         [TestCategory("Date Helper")]
         public void GiveAInvalidBirthdateReturnNegativeAge()
         {
-            DateTime date = new DateTime(DateTime.Now.Year+15, 11, 15);
-            Assert.IsTrue(date.Age() < 0);
+            DateTime date = new DateTime(DateTime.Now.Year + 15, 11, 15);
+            Assert.IsTrue(date.GetAge() < 0);
         }
 
         [TestMethod]
@@ -30,7 +31,7 @@ namespace HelperConversion.Test
         public void GiveATodayBirthdateReturnZeroAge()
         {
             DateTime date = DateTime.Now;
-            Assert.IsTrue(date.Age() == 0);
+            Assert.IsTrue(date.GetAge() == 0);
         }
 
         [TestMethod]
@@ -39,7 +40,7 @@ namespace HelperConversion.Test
         {
             DateTime current = DateTime.UtcNow;
             DateTime another = DateTime.UtcNow.AddDays(10);
-            Assert.AreEqual(10, current.DaysBetween(another));
+            Assert.AreEqual(10, current.GetDaysBetween(another));
         }
 
         [TestMethod]
@@ -48,9 +49,11 @@ namespace HelperConversion.Test
         {
             DateTime current = DateTime.UtcNow;
             DateTime another = DateTime.UtcNow.AddDays(-11);
-            Assert.AreNotEqual(11, current.DaysBetween(another));
+            Assert.AreNotEqual(11, current.GetDaysBetween(another));
         }
+        #endregion
 
+        #region String Helper
         [TestMethod]
         [TestCategory("String Helper")]
         public void GiveAValidStringIntegerValueReturnInteger32()
@@ -121,8 +124,8 @@ namespace HelperConversion.Test
         {
             string value = "192.168.1.1";
             IPAddress ip = null;
-            IPAddress.TryParse(value,out ip);
-            Assert.AreEqual(ip,value.ToIp());
+            IPAddress.TryParse(value, out ip);
+            Assert.AreEqual(ip, value.ToIp());
         }
 
         [TestMethod]
@@ -160,7 +163,7 @@ namespace HelperConversion.Test
         public void GiveAValidNumbersInStringValueReturnNumbers()
         {
             string word = "Abdc1234yuf";
-            Assert.AreEqual("1234",word.GetOnlyNumbers());
+            Assert.AreEqual("1234", word.GetOnlyNumbers());
         }
 
         [TestMethod]
@@ -179,6 +182,136 @@ namespace HelperConversion.Test
             Assert.AreEqual("", word.GetOnlyNumbers());
         }
 
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAValidStringReturnReversed()
+        {
+            string word = "Brasil";
+            Assert.AreEqual("lisarB", word.ReverseString());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAValidDateStringReturnDate()
+        {
+            string word = "05/09/2017";
+            Assert.AreEqual(new DateTime(2017, 09, 05), word.ToDate());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAInvalidDateStringReturnDefaultDate()
+        {
+            string word = "AB/XY/2017";
+            Assert.AreEqual(new DateTime(2017, 09, 05), word.ToDate(new DateTime(2017, 09, 05)));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAValidStringReturnDouble()
+        {
+            string value = "10,5";
+            Assert.AreEqual(10.5, value.ToDouble());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAInvalidStringReturnDoubleDefault()
+        {
+            string value = "ABC";
+            Assert.AreEqual(10.5, value.ToDouble(10.5));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAValidStringReturnDecimal()
+        {
+            string value = "10,5";
+            Assert.AreEqual(10.5m, value.ToDecimal());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAInvalidStringReturnDecimalDefault()
+        {
+            string value = "ABC";
+            Assert.AreEqual(10.5m, value.ToDecimal(10.5m));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAValidStringValueReturnFalseForEmpty()
+        {
+            string value = "word";
+            Assert.IsFalse(value.IsEmpty());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAEmptyStringValueReturnTrueForEmpty()
+        {
+            string value = "";
+            Assert.IsTrue(value.IsEmpty());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringWithMaskThenRemoveTheMask()
+        {
+            string mask = "ABC.765-894.678-00";
+            Assert.AreEqual("ABC76589467800", mask.RemoveMask());
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringGetValueBetweenValidStrings()
+        {
+            string str = "strstartvaluestrend";
+            Assert.AreEqual("value", str.GetStringBetween("strstart", "strend"));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringGetValueBetweenInvalidStrings()
+        {
+            string str = "strstartvaluestrend";
+            Assert.AreNotEqual("value", str.GetStringBetween("invalid", "string"));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringGetValueAfterValidSubtring()
+        {
+            string str = "strstartvaluestrend";
+            Assert.AreEqual("strend",str.GetAfter("value"));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringGetValueAfterInvalidSubtring()
+        {
+            string str = "strstartvaluestrend";
+            Assert.AreNotEqual("strend", str.GetAfter("invalid"));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringGetValueBeforeValidSubtring()
+        {
+            string str = "strstartvaluestrend";
+            Assert.AreEqual("strstart", str.GetBefore("value"));
+        }
+
+        [TestMethod]
+        [TestCategory("String Helper")]
+        public void GiveAStringGetValueBeforeInvalidSubtring()
+        {
+            string str = "strstartvaluestrend";
+            Assert.AreNotEqual("strstart", str.GetBefore("invalid"));
+        }
+        #endregion
+
+        #region Bool Helper
         [TestMethod]
         [TestCategory("Bool Helper")]
         public void GiveATrueBoolReturnStringValue()
@@ -204,7 +337,9 @@ namespace HelperConversion.Test
             bool value = true;
             Assert.AreEqual('1', value.ToChar());
         }
+        #endregion
 
+        #region Byte Helper
         [TestMethod]
         [TestCategory("Byte Helper")]
         public void GenerateValidByteKey()
@@ -227,15 +362,17 @@ namespace HelperConversion.Test
         public void GiveAValidByteReturnStringValue()
         {
             byte[] value = ("wordOne").ToByteUTF8();
-            Assert.AreEqual("wordOne",value.ToStringUTF8Def());
+            Assert.AreEqual("wordOne",value.ToStringUTF8());
         }
+        #endregion
 
+        #region Char Helper
         [TestMethod]
         [TestCategory("Char Helper")]
         public void GiveAValidCharReturnIntValue()
         {
             char value = '1';
-            Assert.AreEqual(1, value.ToIntDef());
+            Assert.AreEqual(1, value.ToInt());
         }
 
         [TestMethod]
@@ -243,7 +380,7 @@ namespace HelperConversion.Test
         public void GiveAinvalidCharReturnIntValueDef()
         {
             char value = 'D';
-            Assert.AreEqual(10, value.ToIntDef(10));
+            Assert.AreEqual(10, value.ToInt(10));
         }
 
         [TestMethod]
@@ -260,6 +397,24 @@ namespace HelperConversion.Test
             char value = 'C';
             Assert.IsFalse(value.ToBool());
         }
+        #endregion
 
+        #region Array Helper
+        [TestMethod]
+        [TestCategory("Array Helper")]
+        public void GiveArrayWithAnyContentReturnTrue()
+        {
+            string[] array = { "valueOne" , "valueTwo" };
+            Assert.IsFalse(array.IsNullOrEmpty());
+        }
+
+        [TestMethod]
+        [TestCategory("Array Helper")]
+        public void GiveArrayWithNoContentReturnTrue()
+        {
+            string[] array = { };
+            Assert.IsTrue(array.IsNullOrEmpty());
+        }
+        #endregion
     }
 }
